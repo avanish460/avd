@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { selectUser } from "./../actions";
+import Card from "./Card";
 class Form extends React.Component {
   state = { count: 1 };
 
@@ -17,40 +18,25 @@ class Form extends React.Component {
   }
 
   onClickHandler = () => {
-    this.setState({ count: Math.random() * 10 + 1 });
+    this.setState({ count: ((Math.random() * 10 + 1) % 10) + 1 });
   };
 
   render() {
-    console.log(this.props);
     return (
       <div className="column twelve wide">
+        <h1>Name</h1>
+        <h1>User Info</h1>
         <form className="ui form">
-          <div className="field">
-            <label>First Name</label>
-            <input
-              type="text"
-              name="first-name"
-              placeholder="First Name"
-              value={this.setFirstName()}
-            />
+          <div>
+            <Card props={this.props.user}></Card>
+            <button
+              className="ui button"
+              type="submit"
+              onClick={this.onClickHandler}
+            >
+              {`Fetch User Data`}
+            </button>
           </div>
-          <div className="field">
-            <label>Last Name</label>
-            <input
-              type="text"
-              name="last-name"
-              placeholder="Last Name"
-              value={this.setLastName()}
-            />
-          </div>
-          <div className="field"></div>
-          <button
-            className="ui button"
-            type="submit"
-            onClick={this.onClickHandler}
-          >
-            {`Click here to get other name than ${this.props.user.first_name}`}
-          </button>
         </form>
       </div>
     );
